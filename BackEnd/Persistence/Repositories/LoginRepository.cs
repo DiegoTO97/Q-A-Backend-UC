@@ -1,15 +1,26 @@
 ﻿using BackEnd.Domain.IRepositories;
+using BackEnd.Domain.Models;
+using BackEnd.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd.Persistence.Repositories
 {
     public class LoginRepository: ILoginRepository
     {
-        private readonly ILoginRepository _loginRepository;
+        private readonly AplicationDbContext _context;
 
-        public LoginRepository(ILoginRepository loginRepository)
+        public LoginRepository (AplicationDbContext context)
         {
-            _loginRepository = loginRepository;
+            _context = context;
         }
 
+        public async Task<User> ValidateUser(User user)
+        {
+            var userValidate = await _context.User.Where(x => 
+            x.UserName == user.UserName && x.Password == user.Password)
+            .FirstOrDefaultAsync();
+
+            return userValidate;
+        }
     }
 }

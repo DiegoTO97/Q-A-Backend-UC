@@ -1,15 +1,21 @@
-﻿using BackEnd.Domain.IServices;
+﻿using BackEnd.Domain.IRepositories;
+using BackEnd.Domain.IServices;
+using BackEnd.Domain.Models;
 
 namespace BackEnd.Services
 {
     public class LoginService: ILoginService
     {
-        private readonly ILoginService _loginService;
+        private readonly ILoginRepository _loginRepository;
 
-        public LoginService(ILoginService loginService)
+        public LoginService(ILoginRepository loginRepository)
         {
-            _loginService = loginService;
+            _loginRepository = loginRepository;
         }
 
+        public async Task<User> ValidateUser(User user)
+        {
+            return await _loginRepository.ValidateUser(user);
+        }
     }
 }
