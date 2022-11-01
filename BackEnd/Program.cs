@@ -44,6 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowWebapp");
 app.UseAuthorization();
 
 app.MapControllers();
