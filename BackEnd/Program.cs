@@ -21,8 +21,13 @@ builder.Services.AddDbContext<AplicationDbContext>(options =>
 });
 
 //Add services
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+
+//Add repository
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+
 
 var app = builder.Build();
 
