@@ -4,6 +4,7 @@ using BackEnd.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221104164150_v1.1")]
+    partial class v11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +127,7 @@ namespace BackEnd.Migrations
             modelBuilder.Entity("BackEnd.Domain.Models.Answer", b =>
                 {
                     b.HasOne("BackEnd.Domain.Models.Question", "Question")
-                        .WithMany("answersList")
+                        .WithMany("Answer")
                         .HasForeignKey("QuestionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -136,7 +138,7 @@ namespace BackEnd.Migrations
             modelBuilder.Entity("BackEnd.Domain.Models.Question", b =>
                 {
                     b.HasOne("BackEnd.Domain.Models.Questionnaire", "Questionnaire")
-                        .WithMany("questionsList")
+                        .WithMany("Question")
                         .HasForeignKey("QuestionnaireId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -157,12 +159,12 @@ namespace BackEnd.Migrations
 
             modelBuilder.Entity("BackEnd.Domain.Models.Question", b =>
                 {
-                    b.Navigation("answersList");
+                    b.Navigation("Answer");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.Questionnaire", b =>
                 {
-                    b.Navigation("questionsList");
+                    b.Navigation("Question");
                 });
 #pragma warning restore 612, 618
         }
