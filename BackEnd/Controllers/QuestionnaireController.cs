@@ -21,7 +21,7 @@ namespace BackEnd.Controllers
         }
         
         [HttpPost]
-       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Post([FromBody]Questionnaire questionnaire)
         {
             try 
@@ -34,7 +34,7 @@ namespace BackEnd.Controllers
                 questionnaire.CreationDate = DateTime.Now;
                 await _questionnaireService.CreateQuestionnaire(questionnaire);
 
-                return Ok(new { message = "The message was added successfully" });
+                return Ok(new { message = "The questionnaire was added successfully" });
             }
             catch (Exception ex)
             {
