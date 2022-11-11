@@ -9,7 +9,8 @@ namespace BackEnd.Persistence.Context
         public DbSet<Question> Question { get; set; }
         public DbSet<Questionnaire> Questionnaire { get; set; }
         public DbSet<Answer> Answer { get; set; }
-
+        public DbSet<AnswerQuestionnaire> AnswerQuestionnaire { get; set; }
+        public DbSet<AnswerQuestionnaireDetail> AnswerQuestionnaireDetail { get; set; }
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options): base(options)
         {
 

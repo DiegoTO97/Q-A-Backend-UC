@@ -16,6 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
                                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                                   );
+
+builder.Services.AddControllers(options =>
+options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true
+                                );
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,11 +41,13 @@ builder.Services.AddDbContext<AplicationDbContext>(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IQuestionnaireService, QuestionnaireService>();
+builder.Services.AddScoped<IAnswerQuestionnaireService, AnswerQuestionnaireService>();
 
 //Add repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+builder.Services.AddScoped<IAnswerQuestionnaireRepository, AnswerQuestionnaireRepository>();
 
 //Add Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

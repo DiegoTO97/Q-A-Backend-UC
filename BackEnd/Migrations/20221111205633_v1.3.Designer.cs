@@ -4,6 +4,7 @@ using BackEnd.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221111205633_v1.3")]
+    partial class v13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("QuestionID");
 
-                    b.ToTable("Answer", (string)null);
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.AnswerQuestionnaire", b =>
@@ -72,7 +74,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("AnswerQuestionnaire", (string)null);
+                    b.ToTable("AnswerQuestionnaire");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.AnswerQuestionnaireDetail", b =>
@@ -95,7 +97,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("AnswerQuestionnaireId");
 
-                    b.ToTable("AnswerQuestionnaireDetail", (string)null);
+                    b.ToTable("AnswerQuestionnaireDetail");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.Question", b =>
@@ -117,7 +119,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("Question", (string)null);
+                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.Questionnaire", b =>
@@ -149,7 +151,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Questionnaire", (string)null);
+                    b.ToTable("Questionnaire");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.User", b =>
@@ -170,7 +172,7 @@ namespace BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("BackEnd.Domain.Models.Answer", b =>

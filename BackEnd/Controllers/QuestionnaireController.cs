@@ -44,7 +44,7 @@ namespace BackEnd.Controllers
 
         [Route("GetListQuestionnaireByUser")]
         [HttpGet]
-        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetListQuestionnaireByUser()
         {
             try
@@ -52,7 +52,7 @@ namespace BackEnd.Controllers
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
                 int userId = JwtConfigurator.GetTokenUserId(identity);
 
-                var questionnaireList = await _questionnaireService.GetListQuestionnaireByUser(3);
+                var questionnaireList = await _questionnaireService.GetListQuestionnaireByUser(userId);
                 return Ok(questionnaireList);
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpDelete("{questionnaireId}")]
-        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(int questionnaireId)
         {
             try
@@ -85,7 +85,7 @@ namespace BackEnd.Controllers
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
                 int userId = JwtConfigurator.GetTokenUserId(identity);
 
-                var questionnaire = await _questionnaireService.FindQuestionnaire(questionnaireId, 3);
+                var questionnaire = await _questionnaireService.FindQuestionnaire(questionnaireId, userId);
                 if(questionnaire == null)
                 {
                     return BadRequest(new { message = "Questionnaire not found" });
