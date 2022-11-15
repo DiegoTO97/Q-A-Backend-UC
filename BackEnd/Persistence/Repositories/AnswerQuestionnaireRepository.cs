@@ -13,6 +13,22 @@ namespace BackEnd.Persistence.Repositories
             _context = context;
         }
 
+        public async Task DeleteAnwserQuestionnaire(AnswerQuestionnaire answerQuestionnaire)
+        {
+            answerQuestionnaire.Active = 0;
+            _context.Entry(answerQuestionnaire).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<AnswerQuestionnaire> FindAnswerQuestionnaire(int ansQuestionnaireId, int userId)
+        {
+            var answerQuestionnaire = await _context.AnswerQuestionnaire
+                .Where(x => x.Id == ansQuestionnaireId && x.Questionnaire.UserId == userId
+                && x.Active == 1).FirstOrDefaultAsync();
+
+            return answerQuestionnaire;
+        }
+
         public async Task<List<AnswerQuestionnaire>> ListAnswerQuestionnaire(int questionnaireId, int userId)
         {
             var listAnswerQuestionnaire = await _context.AnswerQuestionnaire.Where(x =>

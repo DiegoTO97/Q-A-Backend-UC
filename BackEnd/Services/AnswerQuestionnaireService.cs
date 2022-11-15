@@ -14,6 +14,16 @@ namespace BackEnd.Services
 
         }
 
+        public async Task DeleteAnwserQuestionnaire(AnswerQuestionnaire answerQuestionnaire)
+        {
+            await _answerQuestionnaireRespository.DeleteAnwserQuestionnaire(answerQuestionnaire);
+        }
+
+        public async Task<AnswerQuestionnaire> FindAnswerQuestionnaire(int ansQuestionnaireId, int userId)
+        {
+            return await _answerQuestionnaireRespository.FindAnswerQuestionnaire(ansQuestionnaireId, userId);
+        }
+
         public async Task<List<AnswerQuestionnaire>> ListAnswerQuestionnaire(int questionnaireId, int userId)
         {
             return await _answerQuestionnaireRespository.ListAnswerQuestionnaire(questionnaireId, userId);

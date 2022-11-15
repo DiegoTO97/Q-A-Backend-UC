@@ -46,12 +46,39 @@ namespace BackEnd.Controllers
 
                 var listAnswerQuestionnaire = await _answerQuestionnaireService.ListAnswerQuestionnaire(questionnaireId, userId);
 
-                if ( listAnswerQuestionnaire == null)
+                if (listAnswerQuestionnaire == null)
                 {
                     return BadRequest(new { message = "Error finding the answer list" });
                 }
 
                 return Ok(listAnswerQuestionnaire);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var indentity = HttpContext.User.Identity as ClaimsIdentity;
+                int userId = JwtConfigurator.GetTokenUserId(indentity);
+
+                //Creating a method to obtain the answer of the questionnaire
+                var answerQuestionnaire = await _answerQuestionnaireService.FindAnswerQuestionnaire(id, userId);
+                
+                if(answerQuestionnaire == null)
+                {
+                    return BadRequest(new { message = "Error when searching for the answer of the questionnaire" });
+                }
+
+                await _answerQuestionnaireService.DeleteAnwserQuestionnaire(answerQuestionnaire);
+
+                return Ok(new { message = "The response to the questionnaire was deleted successfully" });
             }
             catch (Exception ex)
             {
